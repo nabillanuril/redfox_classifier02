@@ -1,1 +1,1 @@
-# redfox_classifier02
+This repository is made as a correction for the first repository
