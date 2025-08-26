@@ -97,7 +97,7 @@ merge_bark_whine_bouts <- function(df, gap = 0.02) {
   as.data.frame(result)
 }
 
-seltab_sp_xc <- purrr::map(seltab_sp_xc, merge_bark_whine_bouts)
+seltab_sp_xc_merged <- purrr::map(seltab_sp_xc, merge_bark_whine_bouts)
 
 # BL red fox ####
 # set working directory
@@ -381,6 +381,7 @@ dartmoor_noise <- seltab_noise_dr %>%
   mutate(channel = 1,
          clip.files = sound.files,
          sound.files = org.sound.files)
+
 
 
 
