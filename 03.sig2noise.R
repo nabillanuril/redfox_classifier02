@@ -6,10 +6,10 @@ library(rstatix)
 # set working directory
 setwd("F:/MSc Ecology & Data Science Research")
 
-# calculate SNR for consecutive calls with distance < 0.2 
-# calculate distance between calls and assign those with less than 0.2s 
+# calculate SNR for consecutive calls with distance < 0.02 
+# calculate distance between calls and assign those with less than 0.02s 
 # time difference into a column of group ID
-red_foxSNR <- function(df_list, mar = 0.2, type = 2){
+red_foxSNR <- function(df_list, mar = 0.02, type = 3){
   
   seltab_list <- lapply(df_list, function(df) {
     df %>% 
@@ -135,5 +135,6 @@ site_domain <- df_weak_dr %>%
 
 # save the seltab_list as an Excel file so that it can be read in Python
 write.xlsx(public_domain, "F:/MSc Ecology & Data Science Research/Metadata/public_domainSNR.xlsx")
+
 
 
