@@ -1,5 +1,6 @@
 library(dplyr)
 library(warbleR)
+library(tibble)
 
 # set working directory
 setwd("F:/MSc Ecology & Data Science Research")
@@ -175,7 +176,7 @@ for (i in seq_along(folder_paths)) {
     )
   
   on_disk <- list.files(dest_folder, pattern = "\\.[Ww][Aa][Vv]$", full.names = TRUE, recursive = FALSE)
-  on_disk_tbl <- tibble::tibble(
+  on_disk_tbl <- tibble(
     `Begin Path` = on_disk,
     clip_base    = basename(on_disk)
   )
@@ -186,8 +187,9 @@ for (i in seq_along(folder_paths)) {
     mutate(
       `Start Time` = 0,
       `End Time`   = 3,
-      Class        = dplyr::coalesce(Class, "unknown")) %>%
-    dplyr::select(`Start Time`, `End Time`, Class, `Begin Path`)
+      Class        = Class
+      ) %>%
+    select(`Start Time`, `End Time`, Class, `Begin Path`)
   
   # write to file in the SAME destination folder as the .wav files
   out_file <- file.path(dest_folder, "test_eval.txt")
@@ -199,3 +201,4 @@ for (i in seq_along(folder_paths)) {
     quote = FALSE
   )
 }
+
