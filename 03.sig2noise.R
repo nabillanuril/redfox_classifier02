@@ -98,11 +98,11 @@ threshold <- 2
 
 # test if the different groups are different from each other
 public_snr <- public_snr %>% 
-  mutate(SNR_cat = ifelse(SNR < SNR_mean, "Low", 
+  mutate(SNR_cat = ifelse(SNR < threshold, "Low", 
                           ifelse(SNR > threshold, "High", NA_character_)))
 
 site_snr <- site_snr %>% 
-  mutate(SNR_cat = ifelse(SNR < SNR_mean, "Low", 
+  mutate(SNR_cat = ifelse(SNR < threshold, "Low", 
                           ifelse(SNR > threshold, "High", NA_character_)))
 
 t.test(public_snr$SNR ~ public_snr$SNR_cat, na.action = na.omit)
@@ -134,3 +134,4 @@ site_domain <- df_weak_dr %>%
 
 # save the seltab_list as an Excel file so that it can be read in Python
 write.xlsx(public_domain, "F:/MSc Ecology & Data Science Research/Metadata/public_domainSNR.xlsx")
+
