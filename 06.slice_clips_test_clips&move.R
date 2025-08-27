@@ -118,7 +118,7 @@ for (i in seq_along(folder_paths)) {
       next
     }
     # cut dartmoor noise to test set files
-    if if (row$Common.Name == "nocall" && row$domain == "Dartmoor") {
+    if (row$Common.Name == "nocall" && row$domain == "Dartmoor") {
       noise_path <- "F:/MSc Ecology & Data Science Research/1. Dartmoor 2023_noise"
       sel_tab <- selection_table(X = row, files = as.character(row$sound.files), path = noise_path)
       cut_sels(X = sel_tab, path = noise_path, dest.path = dest_folder)
@@ -201,4 +201,5 @@ for (i in seq_along(folder_paths)) {
     quote = FALSE
   )
 }
+
 
