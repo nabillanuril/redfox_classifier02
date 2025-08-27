@@ -157,7 +157,9 @@ for (i in seq_along(folder_paths)) {
   dest_folder <- folder_paths[i]
   test_set <- test_sets[[i]]
   class_col <- test_set$Common.Name
-  test_set$clip.files <- paste0(sub("\\.wav$", "", test_set$sound.files), "-", test_set$selec, ".wav")
+  if (!"clip.files" %in% names(test_set)) {
+    test_set$clip.files <- paste0(sub("\\.wav$", "", test_set$sound.files), "-", test_set$selec, ".wav")
+  }
   
   # build output table (always 0-3)
   eval_df <- test_set %>%
@@ -179,5 +181,6 @@ for (i in seq_along(folder_paths)) {
     quote = FALSE
   )
 }
+
 
 
