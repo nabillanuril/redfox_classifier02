@@ -6,42 +6,46 @@ Disclaimer: the xeno-canto API changes from time to time; query_xc may break wit
 
 Scripts (in order)
 
-1.BL_convermp32wav
+BL_convermp32wav
 Convert British Library MP3 recordings to WAV.
 
-1.DR_fox_active_time
+01.DR_fox_active_time.R
 Filter Dartmoor long recordings to fox-active windows to speed up manual labelling.
 
-1.XC_download_filter_redfox
+01.XC_download_filter_redfox.R
+Download Xeno-Canto recording
 
-2.sig2noise
+02.load_label_result.R
+Import selection label to R
+
+03.sig2noise.R
 Compute signal-to-noise ratio (SNR) for recordings/clips.
 
-slice_clip_test_augment
+04.slice_clips_test_augment.R
 Curate test sets; prepare any augmented material needed for test data.
 
-mix_sig2noise_test
+05.mix_sig2noise_test.ipynb.ipynb
 Mix calls with background noise at target SNRs for test data.
 
-slice_clip_test&move
+06.slice_clips_test_clips&move.R
 Cut/copy test clips and move them into the test folders.
 
-slice_clip_train_dr
+07.slice_clips_train_dr.R
 Curate and clip training data from Dartmoor (including augmented Dartmoor recordings).
 
-slice_clip_train_xc
+07.slice_clips_train_xc.R
 Curate and clip training data from Xeno-Canto recordings.
 
-sample_distribution (optional)
+08.mix_sig2noise_train.ipynb.ipynb
 Visualise sample distributions.
 
-result&stats
+09.result_plot&stats.R
 Visualise model performance comparisons.
 
-load_evaluation metrics
+10.load_evaluation metrics.R
 Load/visualise evaluation metrics and run statistical tests.
 
-map
+10.map.R
 visualise biophone deployment points
 
 
