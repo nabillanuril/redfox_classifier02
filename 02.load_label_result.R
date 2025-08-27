@@ -97,7 +97,7 @@ merge_bark_whine_bouts <- function(df, gap = 0.02) {
 seltab_sp_xc <- mapply(raven2warbleR, file_paths, sound_files, 
                        sound_paths, "Xenocanto", SIMPLIFY = FALSE)
 
-seltab_sp_xc <- purrr::map(seltab_sp_xc, merge_bark_whine_bouts)
+seltab_sp_xc <- map(seltab_sp_xc, merge_bark_whine_bouts)
 
 # BL red fox ####
 # set working directory
@@ -119,7 +119,7 @@ sound_paths <- file.path("1. Britishlib_red fox", sound_files) %>% dirname()
 seltab_sp_bl <- mapply(raven2warbleR, file_paths, sound_files, 
                        sound_paths, "Britishlib", SIMPLIFY = FALSE)
 
-seltab_sp_bl <- purrr::map(seltab_sp_bl, merge_bark_whine_bouts)
+seltab_sp_bl <- map(seltab_sp_bl, merge_bark_whine_bouts)
 
 # DR red fox strong label ####
 # list all selection tables and put the selection table name as wav sound.files inside df
@@ -152,7 +152,7 @@ sound_paths <- tibble(sound_file = sound_files) %>%
 seltab_sp_dr <- mapply(raven2warbleR, file_paths, sound_files, 
                        sound_paths, "Dartmoor", SIMPLIFY = FALSE)
 
-seltab_sp_dr <- purrr::map(seltab_sp_dr, merge_bark_whine_bouts)
+seltab_sp_dr <- map(seltab_sp_dr, merge_bark_whine_bouts)
 
 # XC red fox weak label ####
 strong2weak <- function(df, dur = 3) {
@@ -172,7 +172,7 @@ strong2weak <- function(df, dur = 3) {
   requireNamespace("warbleR", quietly = TRUE)
   # use unique because multiple start and end times have the same files and path
   # keeping the duplicates will cause errors and confuse the function with multiple paths
-  sound_length <- warbleR::duration_sound_files(files = unique(files), path = unique(path), skip.error = FALSE)
+  sound_length <- duration_sound_files(files = unique(files), path = unique(path), skip.error = FALSE)
   
   for (i in seq_len(n)) {
     # 3 issues found while creating this function:
@@ -332,7 +332,7 @@ bl_noise <- seltab_noise_bl %>% bind_rows()
 # warbleR was used instead to automatically create 3-second selection tables
 
 # load recording list from Excel
-fox_active <- readxl::read_xlsx("1. Dartmoor 2023_red fox/fox_active.xlsx")
+fox_active <- read_xlsx("1. Dartmoor 2023_red fox/fox_active.xlsx")
 
 # generate a new name for each recording with the site name as prefix,
 # because some recordings have the same name (they were named by date and time of survey)
@@ -381,3 +381,4 @@ dartmoor_noise <- seltab_noise_dr %>%
   mutate(channel = 1,
          clip.files = sound.files,
          sound.files = org.sound.files)
+
