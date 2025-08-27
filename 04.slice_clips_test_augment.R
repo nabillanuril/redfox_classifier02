@@ -6,8 +6,8 @@ setwd("F:/MSc Ecology & Data Science Research")
 
 # merge overlapping weak lables into one group id and sample one weak label from one group id
 sample_overlap <- function(df, n = 26) {
-  dartmoor_whine <- df %>% bind_rows() 
-  merged <- dartmoor_whine %>% 
+  weak_labels <- df %>% bind_rows() 
+  merged <- weak_labels %>% 
     arrange(sound.files, start) %>%
     group_by(sound.files) %>%
     mutate(group_id = cumsum(start > cummax(lag(end, default = 0))))
@@ -368,3 +368,4 @@ xc_noise <- xc_noise %>%
 Pool_xc_noise <- xc_noise %>% 
 
   slice_sample(n = 120)
+
