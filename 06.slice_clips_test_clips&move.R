@@ -157,18 +157,36 @@ for (i in seq_along(folder_paths)) {
   dest_folder <- folder_paths[i]
   test_set <- test_sets[[i]]
   class_col <- test_set$Common.Name
-  if (!"clip.files" %in% names(test_set)) {
-    test_set$clip.files <- paste0(sub("\\.wav$", "", test_set$sound.files), "-", test_set$selec, ".wav")
+  
+  if (!("clip.files" %in% names(test_set)) ||
+      anyNA(test_set$clip.files) ||
+      any(test_set$clip.files == "", na.rm = TRUE)) {
+    test_set <- test_set %>%
+      mutate(
+        selec      = suppressWarnings(as.integer(selec)),
+        clip.files = paste0(sub("\\.[Ww][Aa][Vv]$", "", sound.files), "-", selec, ".wav")
+      )
   }
   
+  test_map <- test_set %>%
+    dplyr::transmute(
+      clip_base = clip.files,
+      Class     = Common.Name
+    )
+  
+  on_disk <- list.files(dest_folder, pattern = "\\.[Ww][Aa][Vv]$", full.names = TRUE, recursive = FALSE)
+  on_disk_tbl <- tibble::tibble(
+    `Begin Path` = on_disk,
+    clip_base    = basename(on_disk)
+  )
+  
   # build output table (always 0-3)
-  eval_df <- test_set %>%
-    dplyr::mutate(
+  eval_df <- on_disk_tbl %>%
+    left_join(test_map, by = "clip_base") %>%
+    mutate(
       `Start Time` = 0,
       `End Time`   = 3,
-      Class        = class_col,
-      `Begin Path` = file.path(dest_folder, clip.files)
-    ) %>%
+      Class        = dplyr::coalesce(Class, "unknown")) %>%
     dplyr::select(`Start Time`, `End Time`, Class, `Begin Path`)
   
   # write to file in the SAME destination folder as the .wav files
@@ -181,6 +199,3 @@ for (i in seq_along(folder_paths)) {
     quote = FALSE
   )
 }
-
-
-
