@@ -155,7 +155,7 @@ ggplot(
     x = Domain_Label,
     y = Score,
     color = Metric,
-    shape = Quality,         # Optional: shape for Domain, or use fill
+    shape = Quality,
     group = interaction(Metric, Quality)
   )
 ) +
@@ -377,5 +377,6 @@ ggplot(
     axis.text.x = element_text(hjust = 0.5),
     plot.title = element_text(hjust = 0.5),
   )
+
 
 
