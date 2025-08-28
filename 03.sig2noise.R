@@ -119,6 +119,13 @@ public_domain <- seltab_weak_xc %>%
   merge(public_strong, by = c("sound.files", "selec")) %>% 
   bind_rows(public_snr)
 
+# fix red fox in Common.Name (double space -> single space)
+if ("Red  Fox" %in% public_domain$Common.Name) {
+  public_domain$Common.Name[public_domain$Common.Name == "Red  Fox"] <- "Red Fox"
+} 
+# delete empty rows
+public_domain <- public_domain %>% filter(Common.Name != "")
+
 # site domain
 site_strong <- site_snr %>% 
   # subset column with similar rows
@@ -134,4 +141,5 @@ site_domain <- df_weak_dr %>%
 
 # save the seltab_list as an Excel file so that it can be read in Python
 write.xlsx(public_domain, "F:/MSc Ecology & Data Science Research/Metadata/public_domainSNR.xlsx")
+
 
