@@ -56,7 +56,7 @@ n_available <- nrow(sample_1)
 
 n_needed <- 30 - n_available
 
-if(n_needed > 0){
+if(n_needed > 0){ 
   sample_xc <- public_domain %>%
     filter(domain == "Xenocanto",
            label == "weak",
@@ -70,7 +70,9 @@ if(n_needed > 0){
   # Save only the Xenocanto portion for later augmentation
   pool_whine_high_xc <- sample_xc
 } else {
+  # run when n_needed < 0, meaning the sample available is more than 0
   pool_whine_high <- sample_1 %>% slice_sample(n = 30)
+  # if n_needed is more than 0, no xeno canto samples are needed
   # No Xenocanto samples needed, so set an empty data frame for clarity
   pool_whine_high_xc <- pool_whine_high[0,]
 }
@@ -368,4 +370,5 @@ xc_noise <- xc_noise %>%
 Pool_xc_noise <- xc_noise %>% 
 
   slice_sample(n = 120)
+
 
