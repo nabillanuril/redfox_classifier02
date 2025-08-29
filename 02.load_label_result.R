@@ -3,6 +3,7 @@ library(tidyverse)
 library(stringr)
 library(tibble)
 library(purrr)
+library(readxl)
 
 # this script is for:
 # 1. Loading all selection tables if they are already labelled
@@ -381,4 +382,5 @@ dartmoor_noise <- seltab_noise_dr %>%
   mutate(channel = 1,
          clip.files = sound.files,
          sound.files = org.sound.files)
+
 
