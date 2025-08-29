@@ -94,7 +94,7 @@ public_bark <- public_snr %>% filter(Call.Type == "Bark")
 public_whine <- public_snr %>% filter(Call.Type == "Whine")
 
 # split SNR to high and low groups by the threshold
-threshold <- 2
+threshold <- 10^(2/20)
 
 # test if the different groups are different from each other
 public_snr <- public_snr %>% 
@@ -141,6 +141,7 @@ site_domain <- df_weak_dr %>%
 
 # save the seltab_list as an Excel file so that it can be read in Python
 write.xlsx(public_domain, "F:/MSc Ecology & Data Science Research/Metadata/public_domainSNR.xlsx")
+
 
 
 
