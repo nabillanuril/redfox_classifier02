@@ -168,6 +168,7 @@ n_needed <- 30 - n_available
 
 all_xc_prev <- bind_rows(pool_whine_high_xc, pool_bark_high_xc)
 
+# supply whine low snr = whine high snr x dartmoor noise
 if(n_needed > 0){
   sample_xc <- public_domain %>%
     filter(domain == "Xenocanto",
@@ -219,6 +220,7 @@ n_needed <- 30 - n_available
 
 all_xc_prev <- bind_rows(pool_whine_high_xc, pool_bark_high_xc, pool_whine_low_xc)
 
+# supply bark low snr = bark high snr x dartmoor noise
 if(n_needed > 0){
   sample_xc <- public_domain %>%
     filter(domain == "Xenocanto",
@@ -341,6 +343,7 @@ call_keys <- public_domain %>%
   select(sound.files, selec) %>%
   distinct()
 
+# rename selec in xc_noise (noise labels) if it is similar with the call labels
 # for each row in xc_noise, check if similar sound.files and selec exist in call_keys
 for(i in seq_len(nrow(xc_noise))) {
   this_sf <- xc_noise$sound.files[i]
@@ -370,5 +373,6 @@ xc_noise <- xc_noise %>%
 Pool_xc_noise <- xc_noise %>% 
 
   slice_sample(n = 120)
+
 
 
