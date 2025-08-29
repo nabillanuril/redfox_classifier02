@@ -18,7 +18,7 @@ red_foxSNR <- function(df_list, mar = 0.02, type = 3){
         time_gap = start - lag(end),
         time_gap = ifelse(is.na(time_gap), mar, time_gap), # Fix NA
         # cumsum here calculates how many TRUE present with the  given condition
-        # so calls with a time gap less than 0.2 will be counted as FALSE and will be in the
+        # so calls with a time gap less than 0.02 will be counted as FALSE and will be in the
         # same group as the previous TRUE. Those in the same group will have similar SNR
         group_id = cumsum(time_gap >= mar)
       )
@@ -141,5 +141,6 @@ site_domain <- df_weak_dr %>%
 
 # save the seltab_list as an Excel file so that it can be read in Python
 write.xlsx(public_domain, "F:/MSc Ecology & Data Science Research/Metadata/public_domainSNR.xlsx")
+
 
 
