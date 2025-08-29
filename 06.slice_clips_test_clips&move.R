@@ -170,7 +170,7 @@ for (i in seq_along(folder_paths)) {
   }
   
   test_map <- test_set %>%
-    dplyr::transmute(
+    transmute(
       clip_base = clip.files,
       Class     = Common.Name
     )
@@ -201,5 +201,6 @@ for (i in seq_along(folder_paths)) {
     quote = FALSE
   )
 }
+
 
 
