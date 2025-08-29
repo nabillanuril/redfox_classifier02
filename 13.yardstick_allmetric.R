@@ -88,8 +88,12 @@ metrics_by_set <- merge(prob_results, class_results,
                         by = c("combination", "test_set")) %>%
   arrange(combination, test_set)
 
-
 metrics_wide <- metrics_by_set %>%
   select(combination, test_set, .metric, .estimate) %>%
   pivot_wider(names_from = .metric, values_from = .estimate)
 
+
+# save results as an Excel file
+write.xlsx(truth_all, "F:/MSc Ecology & Data Science Research/Metadata/test_set_annotation.xlsx")
+write.xlsx(pred_all, "F:/MSc Ecology & Data Science Research/Metadata/BirdNET_prediction.xlsx")
+write.xlsx(metrics_by_set, "F:/MSc Ecology & Data Science Research/Metadata/evaluation_metrics.xlsx")
