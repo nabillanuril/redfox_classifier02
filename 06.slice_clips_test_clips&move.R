@@ -170,10 +170,12 @@ for (i in seq_along(folder_paths)) {
   }
   
   test_map <- test_set %>%
-    transmute(
+    mutate(
       clip_base = clip.files,
-      Class     = Common.Name
-    )
+      Class     = Common.Name,
+      filename  = paste0(sub("\\.[Ww][Aa][Vv]$", "", sound.files), "-", selec)
+    ) %>%
+    select(clip_base, Class, Call.Type, domain, SNR_cat, label, filename)
   
   on_disk <- list.files(dest_folder, pattern = "\\.[Ww][Aa][Vv]$", full.names = TRUE, recursive = FALSE)
   on_disk_tbl <- tibble(
@@ -189,7 +191,7 @@ for (i in seq_along(folder_paths)) {
       `End Time`   = 3,
       Class        = Class
       ) %>%
-    select(`Start Time`, `End Time`, Class, `Begin Path`)
+    select(`Start Time`, `End Time`, Class, `Begin Path`, Call.Type, domain, SNR_cat, label, filename)
   
   # write to file in the SAME destination folder as the .wav files
   out_file <- file.path(dest_folder, "test_eval.txt")
@@ -201,6 +203,3 @@ for (i in seq_along(folder_paths)) {
     quote = FALSE
   )
 }
-
-
-
