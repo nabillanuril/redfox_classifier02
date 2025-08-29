@@ -283,6 +283,7 @@ sound_paths <- file.path("1. Xenocanto_foreground_wav", sound_files)
 # combine selection table into one list
 seltab_noise_xc <- mapply(raven2warbleR, file_paths, sound_files, 
                           sound_paths, "Xenocanto", SIMPLIFY = FALSE)
+# raven2walbeR automatically adds a label column with Dartmoor value
 
 # fix columns
 cols_to_fix <- c("Common.Name", "View")
@@ -298,7 +299,10 @@ seltab_noise_xc <- lapply(seltab_noise_xc, function(df) {
 xc_noise <- seltab_noise_xc %>% bind_rows() %>% filter(channel == 1) %>%
   # the line below removes noise clips that cause errors
   # noise clips that cause errors are shorter than 3 seconds
-  filter((end - start) == 3)
+  filter((end - start) == 3) %>%
+  # delete label column
+  select(-label)
+
 
 # BL noise ####
 # list all selection tables and put the selection table name as wav sound.files inside df
@@ -328,10 +332,6 @@ seltab_noise_bl <- lapply(seltab_noise_bl, function(df) {
 bl_noise <- seltab_noise_bl %>% bind_rows()
 
 # DR noise ####
-# DR recordings were only manually labelled at the 10-minute recording level
-# noise from DR was not manually labelled at the 3-second clip level
-# warbleR was used instead to automatically create 3-second selection tables
-
 # load recording list from Excel
 fox_active <- read_xlsx("1. Dartmoor 2023_red fox/fox_active.xlsx")
 
@@ -339,6 +339,32 @@ fox_active <- read_xlsx("1. Dartmoor 2023_red fox/fox_active.xlsx")
 # because some recordings have the same name (they were named by date and time of survey)
 # without renaming, the files would overwrite each other when being moved/copied into a new folder
 fox_active$recording <- paste(fox_active$site, fox_active$recording, sep = "_")
+
+# calculate total recording
+all_dr <- fox_active %>%
+  # exclude unused columns from copying clips based on red fox activity
+  subset(select = -c(dest_dir, dest_file, source_file, BirdNET_Prediction)) %>%
+  # add a new column for file.path
+  mutate(source_file  = file.path("1. Dartmoor 2023_red fox", 
+                                  month, site, date, recording),
+         source_dir   = file.path("1. Dartmoor 2023_red fox", 
+                                  month, site, date)) 
+
+total_recording <- 0
+
+for (i in 1:nrow(all_dr)) {
+  file_path <- file.path(all_dr$source_dir[i], all_dr$recording[i])
+  df <- duration_sound_files(files = file_path)
+  # duration_sound_files returns a 2-column df
+  # the line below accumulates the total duration from the df
+  total_recording <- total_recording + as.numeric(df$duration)
+}
+
+print(total_recording)
+
+# DR recordings were only manually labelled at the 10-minute recording level
+# noise from DR was not manually labelled at the 3-second clip level
+# warbleR was used instead to automatically create 3-second selection tables
 
 # filter out files without red fox calls
 noise_dr <- fox_active %>% filter(Fox_Presence != "Red_Fox") %>%
@@ -350,18 +376,6 @@ noise_dr <- fox_active %>% filter(Fox_Presence != "Red_Fox") %>%
          source_dir   = file.path("1. Dartmoor 2023_red fox", 
                                   month, site, date)) 
 
-# calculate total recording
-total_recording <- 0
-
-for (i in 1:nrow(noise_dr)) {
-  file_path <- file.path(noise_dr$source_dir[i], noise_dr$recording[i])
-  df <- duration_sound_files(files = file_path)
-  # duration_sound_files returns a 2-column df
-  # the line below accumulates the total duration from the df
-  total_recording <- total_recording + as.numeric(df$duration)
-}
-
-print(total_recording)
 
 # split recordings into 3-second clips and save the selection table into a new object
 seltab_noise_dr <- lapply(noise_dr$source_dir, 
@@ -382,5 +396,4 @@ dartmoor_noise <- seltab_noise_dr %>%
   mutate(channel = 1,
          clip.files = sound.files,
          sound.files = org.sound.files)
-
 
