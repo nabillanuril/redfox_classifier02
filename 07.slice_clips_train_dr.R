@@ -86,12 +86,12 @@ sampled_noise <- dartmoor_noise %>% anti_join(dr_test_noise, by = join_keys) %>%
   group_by(month, site, date) %>%
   slice_sample(n = 9) %>%
   ungroup() %>% slice_sample(n = 480)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 # move all files into new folder
 setwd("F:/MSc Ecology & Data Science Research")
 sampled_noise$dest_file <- file.path("1. Dartmoor 2023_noise", sampled_noise$sound.files)
 copy_wav <- file.copy(from = sampled_noise$source_file, to = sampled_noise$dest_file)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 
 # noise for mixing
 sampled_noise_1 <- sampled_noise %>% slice_sample(n = 240)
@@ -142,12 +142,12 @@ sampled_noise <- dartmoor_noise %>% anti_join(dr_test_noise, by = join_keys) %>%
   group_by(month, site, date) %>%
   slice_sample(n = 9) %>%
   ungroup() %>% slice_sample(n = 480)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 # move all files into new folder
 setwd("F:/MSc Ecology & Data Science Research")
 sampled_noise$dest_file <- file.path("1. Dartmoor 2023_noise", sampled_noise$sound.files)
 copy_wav <- file.copy(from = sampled_noise$source_file, to = sampled_noise$dest_file)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 
 # noise for mixing
 sampled_noise_1 <- sampled_noise %>% slice_sample(n = 240)
@@ -198,12 +198,12 @@ sampled_noise <- dartmoor_noise %>% anti_join(dr_test_noise, by = join_keys) %>%
   group_by(month, site, date) %>%
   slice_sample(n = 9) %>%
   ungroup() %>% slice_sample(n = 480)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 # move all files into new folder
 setwd("F:/MSc Ecology & Data Science Research")
 sampled_noise$dest_file <- file.path("1. Dartmoor 2023_noise", sampled_noise$sound.files)
 copy_wav <- file.copy(from = sampled_noise$source_file, to = sampled_noise$dest_file)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 
 # noise for mixing
 sampled_noise_1 <- sampled_noise %>% slice_sample(n = 240)
@@ -254,12 +254,12 @@ sampled_noise <- dartmoor_noise %>% anti_join(dr_test_noise, by = join_keys) %>%
   group_by(month, site, date) %>%
   slice_sample(n = 9) %>%
   ungroup() %>% slice_sample(n = 480)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 # move all files into new folder
 setwd("F:/MSc Ecology & Data Science Research")
 sampled_noise$dest_file <- file.path("1. Dartmoor 2023_noise", sampled_noise$sound.files)
 copy_wav <- file.copy(from = sampled_noise$source_file, to = sampled_noise$dest_file)
-sampled_noise$sound.files <- factor(sampled_noise$sound.files)
+
 
 # noise for mixing
 sampled_noise_1 <- sampled_noise %>% slice_sample(n = 240)
@@ -272,6 +272,7 @@ sampled_noise_2 <- sampled_noise %>% anti_join(sampled_noise_1, by = join_keys) 
 selection_table(sampled_noise, path = path_noise)
 cut_sels(sampled_noise, path = path_noise, 
          dest.path = "F:/MSc Ecology & Data Science Research/3. train_data/1. Wilcoxon/dr_lowsnr_strong/Noise")
+
 
 
 
