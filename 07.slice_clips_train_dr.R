@@ -3,7 +3,7 @@ library(warbleR)
 library(purrr)
 
 # this script is for curating training data for the Dartmoor domain
-# calls used to create training data are from Xeno-Canto recordings
+# calls used to create training data are from Xeno-Canto high-quality recordings
 # noise used to create augmented calls and background noise is from Dartmoor recordings
 # filtered calls go to the "augment_data_train" folder to be mixed with Dartmoor background noise in Python (next script)
 # Dartmoor noise for augmented data also goes to the "augment_data_train" folder to be mixed with Xeno-Canto calls in Python (next script)
@@ -272,5 +272,6 @@ sampled_noise_2 <- sampled_noise %>% anti_join(sampled_noise_1, by = join_keys) 
 selection_table(sampled_noise, path = path_noise)
 cut_sels(sampled_noise, path = path_noise, 
          dest.path = "F:/MSc Ecology & Data Science Research/3. train_data/1. Wilcoxon/dr_lowsnr_strong/Noise")
+
 
 
