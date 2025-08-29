@@ -11,3 +11,7 @@ remove("F:/MSc Ecology & Data Science Research/3. augment data")
 remove("F:/MSc Ecology & Data Science Research/3. augment data_train")
 remove("F:/MSc Ecology & Data Science Research/3. test_data")
 remove("F:/MSc Ecology & Data Science Research/3. train_data")
+
+remove("F:/MSc Ecology & Data Science Research/4. model")
+remove("F:/MSc Ecology & Data Science Research/5. model prediction")
+remove("F:/MSc Ecology & Data Science Research/6. evaluation metrics")
