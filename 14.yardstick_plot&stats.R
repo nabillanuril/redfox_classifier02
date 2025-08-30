@@ -1,5 +1,6 @@
 library(readxl)
 
+# This code is no longer being written because yardstick metric results differ from birdnet metric results
 
 metrics_by_set <- read_xlsx("F:/MSc Ecology & Data Science Research/Metadata/evaluation_metrics.xlsx")
 
@@ -29,4 +30,5 @@ all_data <- left_join(metrics_by_set, all_combinations, by = "combination") %>%
          Domain_Label = paste0(Domain, "_", Label),
          Quality_Label = paste0(Quality, "_", Label),
          .after = combination) %>%
+
   relocate(Domain, Quality, Label, .after = Quality_Label)
