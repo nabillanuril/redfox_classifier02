@@ -14,10 +14,12 @@ all_test_set <- map_dfr(folder_paths, function(folder) {
   file_path <- file.path(folder, txt_name)
   
   if (file.exists(file_path)) {
+    txt_name <- basename(folder)
+    txt_number <- sub("^.*test_set_(\\d{2})$", "\\1", txt_name)
     read_tsv(file_path, show_col_types = FALSE) %>%
-      mutate(test_set = basename(folder))
+      mutate(test_set = txt_number)
   }
-}) distinct(across(-test_set))
+})
 
-test_set_pred <- all_test_set %>% merge(all_threshold, by = "filename")
+test_set_pred <- all_test_set %>% merge(all_threshold, by = "filename") %>% distinct(across(-test_set))
 
