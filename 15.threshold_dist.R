@@ -7,7 +7,7 @@ base_dir <- "F:/MSc Ecology & Data Science Research/3. test_data"
 folder_paths <- file.path(base_dir, sprintf("test_set_%02d", 1:20))
 
 # specify txt file name
-txt_name <- "your_file.txt"
+txt_name <- "test_eval.txt"
 
 # read all txt and combine
 all_test_set <- map_dfr(folder_paths, function(folder) {
