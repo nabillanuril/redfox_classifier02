@@ -9,7 +9,7 @@ setwd("F:/MSc Ecology & Data Science Research")
 # calculate SNR for consecutive calls with distance < 0.02 
 # calculate distance between calls and assign those with less than 0.02s 
 # time difference into a column of group ID
-red_foxSNR <- function(df_list, mar = 0.02, type = 3){
+red_foxSNR <- function(df_list, mar = 0.02, type = 2){
   
   seltab_list <- lapply(df_list, function(df) {
     df %>% 
@@ -94,7 +94,7 @@ public_bark <- public_snr %>% filter(Call.Type == "Bark")
 public_whine <- public_snr %>% filter(Call.Type == "Whine")
 
 # split SNR to high and low groups by the threshold
-threshold <- 10^(2/20)
+threshold <- mean(public_snr)
 
 # test if the different groups are different from each other
 public_snr <- public_snr %>% 
@@ -141,6 +141,7 @@ site_domain <- df_weak_dr %>%
 
 # save the seltab_list as an Excel file so that it can be read in Python
 write.xlsx(public_domain, "F:/MSc Ecology & Data Science Research/Metadata/public_domainSNR.xlsx")
+
 
 
 
