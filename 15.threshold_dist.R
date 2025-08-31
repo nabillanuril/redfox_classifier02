@@ -17,7 +17,8 @@ all_test_set <- map_dfr(folder_paths, function(folder) {
     txt_name <- basename(folder)
     txt_number <- sub("^.*test_set_(\\d{2})$", "\\1", txt_name)
     read_tsv(file_path, show_col_types = FALSE) %>%
-      mutate(test_set = txt_number)
+      mutate(test_set = txt_number) %>%
+      select(-'Begin Path')
   }
 })
 
