@@ -19,5 +19,5 @@ all_test_set <- map_dfr(folder_paths, function(folder) {
   }
 }) distinct(across(-test_set))
 
-test_set_pred <- all_test_set %>% merge(all_threshold, by = filename)
+test_set_pred <- all_test_set %>% merge(all_threshold, by = "filename")
 
