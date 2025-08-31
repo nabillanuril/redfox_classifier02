@@ -98,7 +98,7 @@ merge_bark_whine_bouts <- function(df, gap = 0.02) {
 seltab_sp_xc <- mapply(raven2warbleR, file_paths, sound_files, 
                        sound_paths, "Xenocanto", SIMPLIFY = FALSE)
 
-seltab_sp_xc <- map(seltab_sp_xc, merge_bark_whine_bouts)
+# seltab_sp_xc <- map(seltab_sp_xc, merge_bark_whine_bouts)
 
 # BL red fox ####
 # set working directory
@@ -120,7 +120,7 @@ sound_paths <- file.path("1. Britishlib_red fox", sound_files) %>% dirname()
 seltab_sp_bl <- mapply(raven2warbleR, file_paths, sound_files, 
                        sound_paths, "Britishlib", SIMPLIFY = FALSE)
 
-seltab_sp_bl <- map(seltab_sp_bl, merge_bark_whine_bouts)
+# seltab_sp_bl <- map(seltab_sp_bl, merge_bark_whine_bouts)
 
 # DR red fox strong label ####
 # list all selection tables and put the selection table name as wav sound.files inside df
@@ -153,7 +153,7 @@ sound_paths <- tibble(sound_file = sound_files) %>%
 seltab_sp_dr <- mapply(raven2warbleR, file_paths, sound_files, 
                        sound_paths, "Dartmoor", SIMPLIFY = FALSE)
 
-seltab_sp_dr <- map(seltab_sp_dr, merge_bark_whine_bouts)
+# seltab_sp_dr <- map(seltab_sp_dr, merge_bark_whine_bouts)
 
 # XC red fox weak label ####
 strong2weak <- function(df, dur = 3) {
@@ -396,4 +396,5 @@ dartmoor_noise <- seltab_noise_dr %>%
   mutate(channel = 1,
          clip.files = sound.files,
          sound.files = org.sound.files)
+
 
