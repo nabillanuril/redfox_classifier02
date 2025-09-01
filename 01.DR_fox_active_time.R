@@ -49,7 +49,6 @@ fox_active <- fox_active %>%
     dest_dir  = file.path("1. Dartmoor 2023_red fox", month, site, date),
     # list output paths
     dest_file = file.path(dest_dir, paste(site, sep = "_", basename(recording))),
-    # see if you can paste the site name to the recording name
     # list source file path
     source_file  = file.path(source_dir, month, site, date, recording))
   
@@ -66,4 +65,5 @@ copy_wav <- file.copy(from = fox_active$source_file, to = fox_active$dest_file)
 #  write.xlsx(file = "F:/MSc Ecology & Data Science Research/1. Dartmoor 2023/fox_active.xlsx")
 
 # label recordings with and without fox calls in Raven Pro
+
 
