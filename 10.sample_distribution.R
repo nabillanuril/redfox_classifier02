@@ -6,15 +6,33 @@ library(openxlsx)
 # Figure. SNR spread used as the basis for thresholding between low and high SNR category
 public_snr <- read.xlsx("F:/MSc Ecology & Data Science Research/Metadata/public_domainSNR.xlsx")
 
+min_snr  <- min(public_snr$SNR, na.rm = TRUE)
+mean_snr <- mean(public_snr$SNR, na.rm = TRUE)
+max_snr  <- max(public_snr$SNR, na.rm = TRUE)
+
 ggplot(public_snr, aes(x = SNR)) +
   geom_density(alpha = 0.5) + 
-labs(
+  geom_vline(aes(xintercept = mean(SNR)), 
+             colour = "red", linetype = "dashed", size = 1) +
+  scale_x_continuous(
+    labels = c(pretty(public_snr$SNR), paste0("mean = ", round(mean_snr, 2)))
+  ) +
+  scale_x_continuous(
+    breaks = c(min_snr, mean_snr, max_snr),
+    labels = c(paste0("min = ", round(min_snr, 2)),
+               paste0("mean = ", round(mean_snr, 2)),
+               paste0("max = ", round(max_snr, 2)))
+  ) +
+  theme_minimal() +
+  labs(
     title = "SNR distribution",
     x = "SNR",
-    y = "Density",
-    hjust = 0.5
+    y = "Density"
   ) +
-stat_summary(fun = mean, geom = "line")
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  )
+
 
 # Figure 2 ####
 # Figure. SNR spread across Dartmoor recording quality A, B, and C
@@ -45,6 +63,7 @@ call_clips <- strong_clip %>% filter(Call.Type %in% calls)
 
 ggplot(call_clips, aes(x = length, color = Call.Type, fill = Call.Type)) +
   geom_density(alpha = 0.5)
+
 
 
 
