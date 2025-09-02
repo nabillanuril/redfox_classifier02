@@ -13,7 +13,8 @@ labs(
     x = "SNR",
     y = "Density",
     hjust = 0.5
-  )
+  ) +
+stat_summary(fun = mean, geom = "line")
 
 # Figure 2 ####
 # Figure. SNR spread across Dartmoor recording quality A, B, and C
@@ -44,5 +45,6 @@ call_clips <- strong_clip %>% filter(Call.Type %in% calls)
 
 ggplot(call_clips, aes(x = length, color = Call.Type, fill = Call.Type)) +
   geom_density(alpha = 0.5)
+
 
 
