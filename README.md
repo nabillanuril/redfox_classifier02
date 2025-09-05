@@ -39,10 +39,10 @@ Scripts (in order)
 08.mix_sig2noise_train.ipynb.ipynb :  Mix calls with background noise at target SNRs for train data
 
 
-09.BirdNETresult_plot&stats.R : Visualise model performance comparisons
+09.BirdNETresult_plot&stats.R : Visualise model performance comparisons and run statistical tests
 
 
-10.load_evaluation metrics.R : Load/visualise evaluation metrics and run statistical tests
+10.load_evaluation metrics.R : Load/visualise evaluation metrics 
 
 
 10.map.R : visualise biophone deployment points
