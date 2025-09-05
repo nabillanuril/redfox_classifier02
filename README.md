@@ -50,7 +50,7 @@ Curate and clip training data from Xeno-Canto recordings.
 Visualise sample distributions.
 
 
-09.result_plot&stats.R
+09.BirdNETresult_plot&stats.R
 Visualise model performance comparisons.
 
 
