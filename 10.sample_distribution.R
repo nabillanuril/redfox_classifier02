@@ -15,9 +15,6 @@ ggplot(public_snr, aes(x = SNR)) +
   geom_vline(aes(xintercept = mean(SNR)), 
              colour = "red", linetype = "dashed", size = 1) +
   scale_x_continuous(
-    labels = c(pretty(public_snr$SNR), paste0("mean = ", round(mean_snr, 2)))
-  ) +
-  scale_x_continuous(
     breaks = c(min_snr, mean_snr, max_snr),
     labels = c(paste0("min = ", round(min_snr, 2)),
                paste0("mean = ", round(mean_snr, 2)),
@@ -75,3 +72,4 @@ ggplot(call_clips, aes(x = length, color = Call.Type, fill = Call.Type)) +
     fill = "Call Type",
     color = "Call Type"
   )
+
