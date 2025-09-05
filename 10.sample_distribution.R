@@ -26,13 +26,12 @@ ggplot(public_snr, aes(x = SNR)) +
   theme_minimal() +
   labs(
     title = "SNR distribution",
-    x = "SNR",
+    x = "SNR (dB)",
     y = "Density"
   ) +
   theme(
     plot.title = element_text(hjust = 0.5)
   )
-
 
 # Figure 2 ####
 # Figure. SNR spread across Dartmoor recording quality A, B, and C
@@ -62,8 +61,17 @@ strong_clip <- clip_xc %>%
 call_clips <- strong_clip %>% filter(Call.Type %in% calls)
 
 ggplot(call_clips, aes(x = length, color = Call.Type, fill = Call.Type)) +
-  geom_density(alpha = 0.5)
-
-
-
-
+  geom_density(alpha = 0.5) +
+  theme_minimal() +
+  labs(
+    title = "Call Duration Distribution",
+    x = "Call Duration (s)",
+    y = "Density"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5)
+  ) +
+  labs(
+    fill = "Call Type",
+    color = "Call Type"
+  )
